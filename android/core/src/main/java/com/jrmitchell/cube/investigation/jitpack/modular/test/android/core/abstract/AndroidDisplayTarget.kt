@@ -47,6 +47,7 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 		buttonView.setOnClickListener {
 			actionResolver.resolveAction(it.context, data.buttonAction)
 		}
+		imageView.contentDescription = data.imageContentDescription
 		imageLoader.loadImage(data.imageData, imageView)
 	}
 	
