@@ -6,6 +6,10 @@ plugins {
 android {
 	compileSdk 31
 
+	configurations.all {
+		resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+	}
+
 	defaultConfig {
 		applicationId "com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp"
 		minSdk 23
