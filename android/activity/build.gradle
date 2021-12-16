@@ -1,6 +1,7 @@
 plugins {
 	id 'com.android.library'
 	id 'kotlin-android'
+	id 'maven-publish'
 }
 
 android {
@@ -29,13 +30,28 @@ android {
 	kotlinOptions {
 		jvmTarget = '1.8'
 	}
+	afterEvaluate {
+		publishing {
+			publications {
+				// Creates a Maven publication called "release".
+				release(MavenPublication) {
+					// Applies the component for the release build variant.
+					from components.release
+
+					// You can then customize attributes of the publication as shown below.
+					groupId = 'com.jrmitchell.cube.investigation.jitpack.modular.test.android.activity'
+					artifactId = 'android-activity'
+					version = '1.0'
+				}
+			}
+		}
+	}
 }
 
 dependencies {
 
 	implementation 'androidx.core:core-ktx:1.7.0'
 	implementation 'androidx.appcompat:appcompat:1.4.0'
-	implementation 'com.google.android.material:material:1.4.0'
 	implementation project(path: ':android:core')
 	implementation project(path: ':core')
 }
