@@ -10,3 +10,4 @@ rootProject.name = "Jitpack Modular Test Zone Demo App"
 include ':demoapp'
 include ':core'
 include ':android:core'
+include ':android:activity'
