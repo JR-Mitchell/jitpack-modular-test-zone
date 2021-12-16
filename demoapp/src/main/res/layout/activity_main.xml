@@ -8,4 +8,10 @@
 		android:id="@+id/display"
 		layout="@layout/display_view" />
 
+	<ProgressBar
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/loading"
+		android:indeterminate="true" />
+
 </FrameLayout>
