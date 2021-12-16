@@ -19,6 +19,7 @@ abstract class DefaultActivityDisplayTarget <L : AndroidImageLoader> : AppCompat
 	}
 	
 	override fun displayError(throwable: Throwable?) {
+		super.displayError(throwable)
 		Toast.makeText(this, throwable?.localizedMessage ?: "Unknown error", Toast.LENGTH_LONG).show()
 	}
 }

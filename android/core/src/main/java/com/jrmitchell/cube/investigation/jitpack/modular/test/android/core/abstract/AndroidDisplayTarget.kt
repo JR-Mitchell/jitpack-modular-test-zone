@@ -42,6 +42,7 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	val imageLoader : L
 	
 	override fun displayData(data: DisplayData) {
+		setLoadingState(false)
 		titleView.text = data.titleText
 		buttonView.text = data.buttonText
 		buttonView.setOnClickListener {
@@ -49,6 +50,10 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 		}
 		imageView.contentDescription = data.imageContentDescription
 		imageLoader.loadImage(data.imageData, imageView)
+	}
+	
+	override fun displayError(throwable: Throwable?) {
+		setLoadingState(false)
 	}
 	
 	override fun setLoadingState(isLoading: Boolean) {
