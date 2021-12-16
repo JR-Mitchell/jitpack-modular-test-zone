@@ -12,6 +12,7 @@ interface AndroidActionResolver {
 	 *
 	 * @param context the context within which the action was triggered
 	 * @param action the action data associated with the triggering view
+	 * @return whether the action was successfully resolved
 	 */
 	fun resolveAction(context: Context, action: ActionData?) : Boolean
 }
