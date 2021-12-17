@@ -40,10 +40,13 @@ android {
 
 dependencies {
 
+	def libVersion = "main-SNAPSHOT"
+
 	implementation 'androidx.core:core-ktx:1.7.0'
 	implementation 'androidx.appcompat:appcompat:1.4.0'
 	implementation 'com.google.android.material:material:1.4.0'
-	implementation 'com.github.JR-Mitchell.jitpack-modular-test-zone:core:main-SNAPSHOT'
-	implementation 'com.github.JR-Mitchell.jitpack-modular-test-zone:android-core:main-SNAPSHOT'
-	implementation 'com.github.JR-Mitchell.jitpack-modular-test-zone:android-activity:main-SNAPSHOT'
+	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:core:$libVersion"
+	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:android-core:$libVersion"
+	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:android-activity:$libVersion"
+	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:android-images-picasso:$libVersion"
 }
