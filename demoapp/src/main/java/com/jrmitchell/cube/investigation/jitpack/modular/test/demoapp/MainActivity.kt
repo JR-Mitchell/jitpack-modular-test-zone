@@ -22,7 +22,7 @@ class MainActivity : DefaultActivityDisplayTarget<PlaceholderImageLoader>() {
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		
-		populator.populateDisplayFromUri(null, this)
+		populator.populateDisplayFromUri(getActionId(), this)
 	}
 	
 }
