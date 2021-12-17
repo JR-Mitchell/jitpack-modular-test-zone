@@ -11,7 +11,7 @@ class PlaceholderDisplayPopulator : DisplayPopulator {
 	
 	companion object {
 		private val defaultData = DisplayData(
-			ImageData(40, 40, "stuff"),
+			ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
 			"android figure",
 			"Main Title",
 			listOf(
@@ -21,7 +21,7 @@ class PlaceholderDisplayPopulator : DisplayPopulator {
 		)
 		private val data = hashMapOf<String?, DisplayData>(
 			"activityFirst" to DisplayData(
-				ImageData(40, 40, "stuff"),
+				ImageData(40, 40, "https://github.com/JR-Mitchell/DriveFinanceAndroid/blob/main/app/src/main/ic_launcher-playstore.png?raw=true"),
 				"android figure",
 				"First page",
 				listOf(
@@ -32,7 +32,7 @@ class PlaceholderDisplayPopulator : DisplayPopulator {
 				)
 			),
 			"activityOptionA" to DisplayData(
-				ImageData(40, 40, "stuff"),
+				ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
 				"android figure",
 				"You selected Option A",
 				listOf(
@@ -42,7 +42,7 @@ class PlaceholderDisplayPopulator : DisplayPopulator {
 				)
 			),
 			"activityOptionB" to DisplayData(
-				ImageData(40, 40, "stuff"),
+				ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
 				"android figure",
 				"You selected Option B",
 				listOf(
@@ -52,7 +52,7 @@ class PlaceholderDisplayPopulator : DisplayPopulator {
 				)
 			),
 			"activityOptionC" to DisplayData(
-				ImageData(40, 40, "stuff"),
+				ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
 				"android figure",
 				"You selected Option C",
 				listOf(
@@ -62,10 +62,11 @@ class PlaceholderDisplayPopulator : DisplayPopulator {
 				)
 			),
 			"activityConfirm" to DisplayData(
-				ImageData(40, 40, "stuff"),
+				ImageData(40, 40, "https://github.com/JR-Mitchell/DriveFinanceAndroid/blob/main/app/src/main/ic_launcher-playstore.png?raw=true"),
 				"android figure",
 				"You confirmed",
 				listOf(
+					ButtonData("Back to start", ActionData("activityZ")),
 					ButtonData("Close", ActionData("close"))
 				)
 			),
