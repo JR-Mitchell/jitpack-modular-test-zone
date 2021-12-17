@@ -51,7 +51,7 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	override fun displayData(data: DisplayData) {
 		setLoadingState(false)
 		titleView.text = data.titleText
-		buttonAdapter.data = listOf(data.topButton)
+		buttonAdapter.data = data.buttonData
 		imageView.contentDescription = data.imageContentDescription
 		imageLoader.loadImage(data.imageData, imageView)
 	}

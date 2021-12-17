@@ -14,7 +14,7 @@ class PlaceholderDisplayPopulator : DisplayPopulator {
 			ImageData(40, 40, "stuff"),
 			"android figure",
 			"Main Title",
-			ButtonData("Next", ActionData("activity"))
+			listOf(ButtonData("Next", ActionData("activity")))
 		)
 	}
 	
