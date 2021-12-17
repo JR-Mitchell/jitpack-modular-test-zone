@@ -9,7 +9,7 @@ import com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp.databindin
 
 class MainActivity : DefaultActivityDisplayTarget<PlaceholderImageLoader>() {
 	lateinit var binding : ActivityMainBinding
-	override val buttonView: TextView get() = binding.display.findViewById(R.id.display_button)
+	override val topButtonView: TextView get() = binding.display.findViewById(R.id.display_button)
 	override val imageLoader = PlaceholderImageLoader()
 	override val imageView: ImageView get() = binding.display.findViewById(R.id.display_image)
 	override val loadingUi: View get() = binding.loading
