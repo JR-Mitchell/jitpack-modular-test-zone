@@ -32,5 +32,8 @@ abstract class DefaultActivityDisplayTarget <L : AndroidImageLoader> : AppCompat
 		Toast.makeText(this, throwable?.localizedMessage ?: "Unknown error", Toast.LENGTH_LONG).show()
 	}
 	
+	/**
+	 * Get the action ID that this activity was created with
+	 */
 	protected fun getActionId() = intent.getStringExtra(ACTION_ID_EXTRA_KEY)
 }
