@@ -4,6 +4,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
+import com.jrmitchell.cube.investigation.jitpack.modular.test.android.core.adapter.ButtonAdapter
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.abstract.DisplayTarget
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.data.DisplayData
 
@@ -14,40 +16,42 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	/**
 	 * View to be used as loading UI
 	 */
-	val loadingUi : View
+	val loadingUi: View
 	
 	/**
 	 * View to display the data's main image in
 	 */
-	val imageView : ImageView
+	val imageView: ImageView
 	
 	/**
 	 * View to display the data's title in
 	 */
-	val titleView : TextView
+	val titleView: TextView
 	
 	/**
-	 * View to display the data's button in
+	 * View to display the buttons in
 	 */
-	val buttonView : TextView
+	val buttonRecyclerView : RecyclerView
+	
+	/**
+	 * Adapter for the button RecyclerView
+	 */
+	var buttonAdapter : ButtonAdapter
 	
 	/**
 	 * Resolver for clicks on the button
 	 */
-	val actionResolver : R
+	val actionResolver: R
 	
 	/**
 	 * Loader for the image
 	 */
-	val imageLoader : L
+	val imageLoader: L
 	
 	override fun displayData(data: DisplayData) {
 		setLoadingState(false)
 		titleView.text = data.titleText
-		buttonView.text = data.buttonText
-		buttonView.setOnClickListener {
-			actionResolver.resolveAction(it.context, data.buttonAction)
-		}
+		buttonAdapter.data = data.buttonData
 		imageView.contentDescription = data.imageContentDescription
 		imageLoader.loadImage(data.imageData, imageView)
 	}
@@ -58,5 +62,16 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	
 	override fun setLoadingState(isLoading: Boolean) {
 		loadingUi.isVisible = isLoading
+	}
+	
+	/**
+	 * Initialises the [buttonAdapter] with the [buttonRecyclerView] and [actionResolver]
+	 * Should be called once upon creation
+	 */
+	fun initialiseAdapter()
+	{
+		buttonAdapter = ButtonAdapter()
+		buttonAdapter.actionResolver = actionResolver
+		buttonRecyclerView.adapter = buttonAdapter
 	}
 }

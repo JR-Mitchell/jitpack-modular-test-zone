@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.activity.DefaultActivityDisplayTarget
+import com.jrmitchell.cube.investigation.jitpack.modular.test.android.core.adapter.ButtonAdapter
 import com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp.databinding.ActivityMainBinding
 
 class MainActivity : DefaultActivityDisplayTarget<PlaceholderImageLoader>() {
 	lateinit var binding : ActivityMainBinding
-	override val buttonView: TextView get() = binding.display.findViewById(R.id.display_button)
+	override val buttonRecyclerView: RecyclerView get() = binding.display.findViewById(R.id.display_button_list)
+	override lateinit var buttonAdapter : ButtonAdapter
 	override val imageLoader = PlaceholderImageLoader()
 	override val imageView: ImageView get() = binding.display.findViewById(R.id.display_image)
 	override val loadingUi: View get() = binding.loading
@@ -21,6 +24,8 @@ class MainActivity : DefaultActivityDisplayTarget<PlaceholderImageLoader>() {
 		super.onCreate(savedInstanceState)
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
+		
+		initialiseAdapter()
 		
 		populator.populateDisplayFromUri(getActionId(), this)
 	}

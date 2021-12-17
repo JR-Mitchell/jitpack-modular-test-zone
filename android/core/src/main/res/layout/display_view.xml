@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -20,10 +21,10 @@
 		android:layout_margin="12dp"
 		tools:ignore="ContentDescription"><!-- ContentDescription set programmatically --></ImageView>
 
-	<Button
+	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:id="@+id/display_button"
-		android:layout_margin="12dp"
-		tools:text="Button" />
+		android:id="@+id/display_button_list"
+		android:orientation="vertical"
+		app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </LinearLayout>
