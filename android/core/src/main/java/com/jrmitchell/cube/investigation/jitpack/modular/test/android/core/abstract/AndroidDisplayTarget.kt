@@ -36,7 +36,7 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	/**
 	 * Adapter for the button RecyclerView
 	 */
-	val buttonAdapter : ButtonAdapter
+	var buttonAdapter : ButtonAdapter
 	
 	/**
 	 * Resolver for clicks on the button
@@ -62,5 +62,16 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	
 	override fun setLoadingState(isLoading: Boolean) {
 		loadingUi.isVisible = isLoading
+	}
+	
+	/**
+	 * Initialises the [buttonAdapter] with the [buttonRecyclerView] and [actionResolver]
+	 * Should be called once upon creation
+	 */
+	fun initialiseAdapter()
+	{
+		buttonAdapter = ButtonAdapter()
+		buttonAdapter.actionResolver = actionResolver
+		buttonRecyclerView.adapter = buttonAdapter
 	}
 }
