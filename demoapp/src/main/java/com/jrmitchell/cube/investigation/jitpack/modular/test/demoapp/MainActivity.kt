@@ -28,7 +28,7 @@ class MainActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 		
 		initialiseAdapter()
 		
-		populator.populateDisplayFromUri(getActionId(), this)
+		populator.populateDisplayFromUri(getActionId(), this, this)
 	}
 	
 }
