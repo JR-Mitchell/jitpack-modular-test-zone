@@ -51,4 +51,9 @@ android {
 dependencies {
 
 	implementation 'androidx.core:core-ktx:1.7.0'
+	implementation project(path: ':android:core')
+	implementation project(path: ':core')
+	implementation 'androidx.fragment:fragment-ktx:1.3.2'
+	implementation 'androidx.appcompat:appcompat:1.4.0'
+	implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }
