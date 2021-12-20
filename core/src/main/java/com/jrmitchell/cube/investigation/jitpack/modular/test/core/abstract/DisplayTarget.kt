@@ -17,9 +17,4 @@ interface DisplayTarget {
 	 * Display an error thrown during attempting to populate this [DisplayTarget]
 	 */
 	fun displayError(throwable : Throwable? = null)
-	
-	/**
-	 * Set the loading state for this [DisplayTarget]
-	 */
-	fun setLoadingState(isLoading : Boolean)
 }

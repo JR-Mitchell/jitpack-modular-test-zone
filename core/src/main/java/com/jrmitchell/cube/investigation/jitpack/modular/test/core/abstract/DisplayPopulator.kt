@@ -9,6 +9,7 @@ interface DisplayPopulator {
 	 *
 	 * @param pageUri the URI to fetch data based on
 	 * @param target the target to display the fetched data in
+	 * @param loadingIndicator the loading UI to update on fetching state
 	 */
-	fun populateDisplayFromUri(pageUri : String?, target: DisplayTarget)
+	fun populateDisplayFromUri(pageUri : String?, target: DisplayTarget, loadingIndicator: LoadingIndicator)
 }
