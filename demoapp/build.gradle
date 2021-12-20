@@ -48,5 +48,6 @@ dependencies {
 	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:core:$libVersion"
 	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:android-core:$libVersion"
 	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:android-activity:$libVersion"
+	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:android-fragment:$libVersion"
 	implementation "com.github.JR-Mitchell.jitpack-modular-test-zone:android-images-picasso:$libVersion"
 }

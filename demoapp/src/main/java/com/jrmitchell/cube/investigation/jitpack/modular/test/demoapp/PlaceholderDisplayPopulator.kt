@@ -8,73 +8,77 @@ import com.jrmitchell.cube.investigation.jitpack.modular.test.core.data.ButtonDa
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.data.DisplayData
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.data.ImageData
 
-class PlaceholderDisplayPopulator : DisplayPopulator {
+class PlaceholderDisplayPopulator(private val prefix: String) : DisplayPopulator {
 	
-	companion object {
-		private val defaultData = DisplayData(
+	private fun actionName(suffix: String) = prefix + suffix
+	private fun redirectAction(suffix: String) = ActionData(actionName(suffix))
+	
+	private val defaultData = DisplayData(
+		ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
+		"android figure",
+		"Main Title",
+		listOf(
+			ButtonData("Next", redirectAction("First")),
+			ButtonData("Finish", ActionData("close"))
+		)
+	)
+	
+	private val data = hashMapOf<String?, DisplayData>(
+		actionName("First") to DisplayData(
+			ImageData(40, 40, "https://github.com/JR-Mitchell/DriveFinanceAndroid/blob/main/app/src/main/ic_launcher-playstore.png?raw=true"),
+			"android figure",
+			"First page",
+			listOf(
+				ButtonData("Option A", redirectAction("OptionA")),
+				ButtonData("Option B", redirectAction("OptionB")),
+				ButtonData("Option C", redirectAction("OptionC")),
+				ButtonData("Back", ActionData("back"))
+			)
+		),
+		actionName("OptionA") to DisplayData(
 			ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
 			"android figure",
-			"Main Title",
+			"You selected Option A",
 			listOf(
-				ButtonData("Next", ActionData("activityFirst")),
-				ButtonData("Finish", ActionData("close"))
+				ButtonData("Confirm", redirectAction("Confirm")),
+				ButtonData("Back", ActionData("back")),
+				ButtonData("Close", ActionData("close"))
 			)
-		)
-		private val data = hashMapOf<String?, DisplayData>(
-			"activityFirst" to DisplayData(
-				ImageData(40, 40, "https://github.com/JR-Mitchell/DriveFinanceAndroid/blob/main/app/src/main/ic_launcher-playstore.png?raw=true"),
-				"android figure",
-				"First page",
-				listOf(
-					ButtonData("Option A", ActionData("activityOptionA")),
-					ButtonData("Option B", ActionData("activityOptionB")),
-					ButtonData("Option C", ActionData("activityOptionC")),
-					ButtonData("Back", ActionData("back"))
-				)
-			),
-			"activityOptionA" to DisplayData(
-				ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
-				"android figure",
-				"You selected Option A",
-				listOf(
-					ButtonData("Confirm", ActionData("activityConfirm")),
-					ButtonData("Back", ActionData("back")),
-					ButtonData("Close", ActionData("close"))
-				)
-			),
-			"activityOptionB" to DisplayData(
-				ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
-				"android figure",
-				"You selected Option B",
-				listOf(
-					ButtonData("Confirm", ActionData("activityConfirm")),
-					ButtonData("Back", ActionData("back")),
-					ButtonData("Close", ActionData("close"))
-				)
-			),
-			"activityOptionC" to DisplayData(
-				ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
-				"android figure",
-				"You selected Option C",
-				listOf(
-					ButtonData("Confirm", ActionData("activityConfirm")),
-					ButtonData("Back", ActionData("back")),
-					ButtonData("Close", ActionData("close"))
-				)
-			),
-			"activityConfirm" to DisplayData(
-				ImageData(40, 40, "https://github.com/JR-Mitchell/DriveFinanceAndroid/blob/main/app/src/main/ic_launcher-playstore.png?raw=true"),
-				"android figure",
-				"You confirmed",
-				listOf(
-					ButtonData("Back to start", ActionData("activityZ")),
-					ButtonData("Close", ActionData("close"))
-				)
-			),
-		)
-	}
+		),
+		actionName("OptionB") to DisplayData(
+			ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
+			"android figure",
+			"You selected Option B",
+			listOf(
+				ButtonData("Confirm", redirectAction("Confirm")),
+				ButtonData("Back", ActionData("back")),
+				ButtonData("Close", ActionData("close"))
+			)
+		),
+		actionName("OptionC") to DisplayData(
+			ImageData(40, 40, "https://avatars.githubusercontent.com/u/8377714?v=4"),
+			"android figure",
+			"You selected Option C",
+			listOf(
+				ButtonData("Confirm", redirectAction("Confirm")),
+				ButtonData("Back", ActionData("back")),
+				ButtonData("Close", ActionData("close"))
+			)
+		),
+		actionName("Confirm") to DisplayData(
+			ImageData(40, 40, "https://github.com/JR-Mitchell/DriveFinanceAndroid/blob/main/app/src/main/ic_launcher-playstore.png?raw=true"),
+			"android figure",
+			"You confirmed",
+			listOf(
+				ButtonData("Back to start", redirectAction("Z")),
+				ButtonData("Close", ActionData("close"))
+			)
+		),
+	)
 	
 	override fun populateDisplayFromUri(pageUri: String?, target: DisplayTarget, loadingIndicator: LoadingIndicator) {
+		loadingIndicator.setLoadingState(true)
 		target.displayData(data[pageUri] ?: defaultData)
+		loadingIndicator.setLoadingState(false)
 	}
 }

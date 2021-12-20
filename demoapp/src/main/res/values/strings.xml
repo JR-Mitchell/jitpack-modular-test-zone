@@ -1,3 +1,5 @@
 <resources>
 	<string name="app_name">Jitpack Modular Test Zone Demo App</string>
+	<string name="activity_implementation">Activity implementation</string>
+	<string name="fragment_implementation">Fragment implementation</string>
 </resources>
