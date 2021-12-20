@@ -14,17 +14,17 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	/**
 	 * View to display the data's main image in
 	 */
-	val imageView: ImageView
+	val imageView: ImageView?
 	
 	/**
 	 * View to display the data's title in
 	 */
-	val titleView: TextView
+	val titleView: TextView?
 	
 	/**
 	 * View to display the buttons in
 	 */
-	val buttonRecyclerView : RecyclerView
+	val buttonRecyclerView : RecyclerView?
 	
 	/**
 	 * Adapter for the button RecyclerView
@@ -42,10 +42,12 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	val imageLoader: L
 	
 	override fun displayData(data: DisplayData) {
-		titleView.text = data.titleText
+		titleView?.text = data.titleText
 		buttonAdapter.data = data.buttonData
-		imageView.contentDescription = data.imageContentDescription
-		imageLoader.loadImage(data.imageData, imageView)
+		imageView?.let {
+			it.contentDescription = data.imageContentDescription
+			imageLoader.loadImage(data.imageData, it)
+		}
 	}
 	
 	/**
@@ -56,6 +58,6 @@ interface AndroidDisplayTarget<R : AndroidActionResolver, L : AndroidImageLoader
 	{
 		buttonAdapter = ButtonAdapter()
 		buttonAdapter.actionResolver = actionResolver
-		buttonRecyclerView.adapter = buttonAdapter
+		buttonRecyclerView?.adapter = buttonAdapter
 	}
 }
