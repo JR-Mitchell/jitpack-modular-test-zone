@@ -28,7 +28,7 @@ class FragmentActivity : DefaultFragmentActivity<FragmentContainerView, PicassoI
 		fragmentFactory = getDefaultFragmentFactory()
 		supportFragmentManager.fragmentFactory = fragmentFactory
 		
-		actionResolver.resolveAction(this, ActionData("fragmentO"))
+		actionResolver.resolveAction(this, ActionData("screen0"))
 	}
 	
 }

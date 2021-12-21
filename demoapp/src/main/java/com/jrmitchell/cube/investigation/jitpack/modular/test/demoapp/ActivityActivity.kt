@@ -31,7 +31,7 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 		
 		initialiseAdapter()
 		
-		populator.populateDisplayFromUri(getActionId() ?: "activityO", this, this)
+		populator.populateDisplayFromUri(getActionId() ?: "screen0", this, this)
 	}
 	
 }
