@@ -20,7 +20,7 @@ abstract class DefaultActivityDisplayTarget <L : AndroidImageLoader> : AppCompat
 	}
 	
 	override val actionResolver = MultiActionResolver().apply {
-		resolvers.add(activityIntentActionResolver("""activity.+""".toRegex()) { actionId ->
+		resolvers.add(activityIntentActionResolver("""screen.+""".toRegex()) { actionId ->
 			Intent(this@DefaultActivityDisplayTarget, this@DefaultActivityDisplayTarget::class.java).also {
 				it.putExtra(ACTION_ID_EXTRA_KEY, actionId)
 			}
