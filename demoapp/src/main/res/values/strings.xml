@@ -2,4 +2,7 @@
 	<string name="app_name">Jitpack Modular Test Zone Demo App</string>
 	<string name="activity_implementation">Activity implementation</string>
 	<string name="fragment_implementation">Fragment implementation</string>
+	<string name="go">Go!</string>
+	<string name="ui_display_type">UI Display Type</string>
+	<string name="populator_type">Populator type</string>
 </resources>

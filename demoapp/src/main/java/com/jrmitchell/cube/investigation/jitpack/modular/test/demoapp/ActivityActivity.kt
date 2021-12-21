@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.activity.DefaultActivityDisplayTarget
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.core.adapter.ButtonAdapter
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.images.picasso.PicassoImageLoader
+import com.jrmitchell.cube.investigation.jitpack.modular.test.core.abstract.DisplayPopulator
 import com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp.databinding.ActivityActivityBinding
 
 class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
@@ -19,16 +20,18 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 	override val loadingUi: View get() = binding.loading
 	override val titleView: TextView get() = binding.display.findViewById(R.id.display_title)
 	
-	val populator = PlaceholderDisplayPopulator("activity")
+	lateinit var populator : DisplayPopulator
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		binding = ActivityActivityBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		
+		populator = PopulatorType.valueOfOrDefault(intent.getStringExtra(PopulatorType::class.simpleName)).activityGetter(this)
+		
 		initialiseAdapter()
 		
-		populator.populateDisplayFromUri(getActionId(), this, this)
+		populator.populateDisplayFromUri(getActionId() ?: "activityO", this, this)
 	}
 	
 }
