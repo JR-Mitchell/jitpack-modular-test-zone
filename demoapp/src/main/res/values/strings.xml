@@ -4,4 +4,5 @@
 	<string name="fragment_implementation">Fragment implementation</string>
 	<string name="go">Go!</string>
 	<string name="ui_display_type">UI Display Type</string>
+	<string name="populator_type">Populator type</string>
 </resources>
