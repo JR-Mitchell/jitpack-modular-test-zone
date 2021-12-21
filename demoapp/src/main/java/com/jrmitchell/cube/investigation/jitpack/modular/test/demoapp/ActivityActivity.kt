@@ -1,5 +1,6 @@
 package com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -32,6 +33,12 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 		initialiseAdapter()
 		
 		populator.populateDisplayFromUri(getActionId() ?: "screen0", this, this)
+	}
+	
+	override fun screenIntentGenerator(actionId: String): Intent {
+		return super.screenIntentGenerator(actionId).apply {
+			putExtra(PopulatorType::class.simpleName, intent.getStringExtra(PopulatorType::class.simpleName))
+		}
 	}
 	
 }
