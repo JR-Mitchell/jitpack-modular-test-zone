@@ -10,8 +10,8 @@ enum class PopulatorType(val activityGetter : ActivityActivity.() -> DisplayPopu
 		{PlaceholderDisplayPopulator()}
 	),
 	RETRO_GSON_LOADED(
-		{ RetrofitGsonPopulator("https://raw.githubusercontent.com/JR-Mitchell/jitpack-modular-test-zone/feature/retrofit-gson-content-loader/demoapp/demodata/", { this.lifecycleScope }, ".json")},
-		{ RetrofitGsonPopulator("https://raw.githubusercontent.com/JR-Mitchell/jitpack-modular-test-zone/feature/retrofit-gson-content-loader/demoapp/demodata/", { this.lifecycleScope }, ".json")}
+		{ RetrofitGsonPopulator("https://raw.githubusercontent.com/JR-Mitchell/jitpack-modular-test-zone/$CURRENT_BRANCH/demoapp/demodata/", { this.lifecycleScope }, ".json")},
+		{ RetrofitGsonPopulator("https://raw.githubusercontent.com/JR-Mitchell/jitpack-modular-test-zone/$CURRENT_BRANCH/demoapp/demodata/", { this.lifecycleScope }, ".json")}
 	);
 	companion object {
 		fun valueOfOrDefault(string: String?) = try {
@@ -19,5 +19,6 @@ enum class PopulatorType(val activityGetter : ActivityActivity.() -> DisplayPopu
 		} catch (e : Throwable) {
 			HARDCODED
 		}
+		const val CURRENT_BRANCH = "main"
 	}
 }
