@@ -1,34 +1,25 @@
 package com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import com.jrmitchell.cube.investigation.jitpack.modular.test.android.activity.DefaultActivityDisplayTarget
-import com.jrmitchell.cube.investigation.jitpack.modular.test.android.core.adapter.ButtonAdapter
-import com.jrmitchell.cube.investigation.jitpack.modular.test.android.images.picasso.PicassoImageLoader
+import androidx.appcompat.app.AppCompatActivity
 import com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp.databinding.ActivityMainBinding
 
-class MainActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
-	lateinit var binding : ActivityMainBinding
-	override val buttonRecyclerView: RecyclerView get() = binding.display.findViewById(R.id.display_button_list)
-	override lateinit var buttonAdapter : ButtonAdapter
-	override val imageLoader = PicassoImageLoader
-	override val imageView: ImageView get() = binding.display.findViewById(R.id.display_image)
-	override val loadingUi: View get() = binding.loading
-	override val titleView: TextView get() = binding.display.findViewById(R.id.display_title)
-	
-	val populator = PlaceholderDisplayPopulator()
-	
+class MainActivity : AppCompatActivity() {
+	private lateinit var binding: ActivityMainBinding
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		binding = ActivityMainBinding.inflate(layoutInflater)
 		setContentView(binding.root)
 		
-		initialiseAdapter()
+		binding.buttonActivity.setOnClickListener {
+			startActivity(Intent(this, ActivityActivity::class.java).apply {
+				addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+			})
+		}
 		
-		populator.populateDisplayFromUri(getActionId(), this)
+		binding.buttonFragment.setOnClickListener {
+			startActivity(Intent(this, FragmentActivity::class.java))
+		}
 	}
-	
 }
