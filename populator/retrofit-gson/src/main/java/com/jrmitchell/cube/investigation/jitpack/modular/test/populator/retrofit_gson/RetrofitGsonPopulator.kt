@@ -14,7 +14,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () -> CoroutineScope) : DisplayPopulator {
+class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () -> CoroutineScope, val uriSuffix : String = "") : DisplayPopulator {
 	
 	companion object {
 		private fun jsonObjectToImageData(obj : JsonObject): ImageData {
@@ -68,7 +68,7 @@ class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () ->
 				throw Throwable()
 			}
 			val data = withContext(Dispatchers.IO) {
-				val response = api.getContentByLink(pageUri)
+				val response = api.getContentByLink(pageUri + uriSuffix)
 				jsonObjectToDisplayData(response)
 			}
 			loadingIndicator.setLoadingState(false)
