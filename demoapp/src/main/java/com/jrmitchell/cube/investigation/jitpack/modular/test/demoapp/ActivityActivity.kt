@@ -1,6 +1,5 @@
 package com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -21,7 +20,7 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 	override val loadingUi: View get() = binding.loading
 	override val titleView: TextView get() = binding.display.findViewById(R.id.display_title)
 	
-	lateinit var populator : DisplayPopulator
+	lateinit var populator: DisplayPopulator
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -35,10 +34,8 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 		populator.populateDisplayFromUri(getActionId() ?: "screen0", this, this)
 	}
 	
-	override fun screenIntentGenerator(actionId: String): Intent {
-		return super.screenIntentGenerator(actionId).apply {
-			putExtra(PopulatorType::class.simpleName, intent.getStringExtra(PopulatorType::class.simpleName))
-		}
+	override fun screenIntentGenerator(actionId: String) = super.screenIntentGenerator(actionId).apply {
+		putExtra(PopulatorType::class.simpleName, intent.getStringExtra(PopulatorType::class.simpleName))
 	}
 	
 }
