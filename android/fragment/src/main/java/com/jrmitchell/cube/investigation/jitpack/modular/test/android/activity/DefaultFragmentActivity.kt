@@ -48,7 +48,7 @@ abstract class DefaultFragmentActivity<T : View, L : AndroidImageLoader> : AppCo
 		})
 	
 	val actionResolver = MultiActionResolver().apply {
-		resolvers.add(MatchActionResolver("""fragment.+""".toRegex()) { _, actionId ->
+		resolvers.add(MatchActionResolver("""screen.+""".toRegex()) { _, actionId ->
 			supportFragmentManager.beginTransaction()
 				.replace(fragmentContainerView.id, fragmentFactory.fragmentForId(actionId))
 				.addToBackStack(null)

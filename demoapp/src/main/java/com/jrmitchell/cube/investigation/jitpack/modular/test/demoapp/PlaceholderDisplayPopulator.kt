@@ -8,8 +8,10 @@ import com.jrmitchell.cube.investigation.jitpack.modular.test.core.data.ButtonDa
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.data.DisplayData
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.data.ImageData
 
-class PlaceholderDisplayPopulator(private val prefix: String) : DisplayPopulator {
-	
+class PlaceholderDisplayPopulator : DisplayPopulator {
+	companion object {
+		private const val prefix = "screen"
+	}
 	private fun actionName(suffix: String) = prefix + suffix
 	private fun redirectAction(suffix: String) = ActionData(actionName(suffix))
 	

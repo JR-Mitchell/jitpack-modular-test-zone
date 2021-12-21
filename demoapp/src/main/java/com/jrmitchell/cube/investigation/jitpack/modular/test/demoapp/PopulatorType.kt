@@ -6,12 +6,12 @@ import com.jrmitchell.cube.investigation.jitpack.modular.test.populator.retrofit
 
 enum class PopulatorType(val activityGetter : ActivityActivity.() -> DisplayPopulator, val fragmentGetter : FragmentActivity.() -> DisplayPopulator) {
 	HARDCODED(
-		{PlaceholderDisplayPopulator("activity")},
-		{PlaceholderDisplayPopulator("fragment")}
+		{PlaceholderDisplayPopulator()},
+		{PlaceholderDisplayPopulator()}
 	),
 	RETRO_GSON_LOADED(
-		{ RetrofitGsonPopulator("https://raw.githubusercontent.com/JR-Mitchell/jitpack-modular-test-zone/feature/retrofit-gson-content-loader/demoapp/demodata/", { this.lifecycleScope }, ".json")},
-		{ RetrofitGsonPopulator("https://raw.githubusercontent.com/JR-Mitchell/jitpack-modular-test-zone/feature/retrofit-gson-content-loader/demoapp/demodata/", { this.lifecycleScope }, ".json")}
+		{ RetrofitGsonPopulator("https://raw.githubusercontent.com/JR-Mitchell/jitpack-modular-test-zone/$CURRENT_BRANCH/demoapp/demodata/", { this.lifecycleScope }, ".json")},
+		{ RetrofitGsonPopulator("https://raw.githubusercontent.com/JR-Mitchell/jitpack-modular-test-zone/$CURRENT_BRANCH/demoapp/demodata/", { this.lifecycleScope }, ".json")}
 	);
 	companion object {
 		fun valueOfOrDefault(string: String?) = try {
@@ -19,5 +19,6 @@ enum class PopulatorType(val activityGetter : ActivityActivity.() -> DisplayPopu
 		} catch (e : Throwable) {
 			HARDCODED
 		}
+		const val CURRENT_BRANCH = "main"
 	}
 }
