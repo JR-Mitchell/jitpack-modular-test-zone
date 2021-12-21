@@ -20,13 +20,13 @@ abstract class DefaultActivityDisplayTarget <L : AndroidImageLoader> : AppCompat
 	}
 	
 	override val actionResolver = MultiActionResolver().apply {
-		resolvers.add(activityIntentActionResolver("""screen.+""".toRegex()) { actionId ->
-			Intent(this@DefaultActivityDisplayTarget, this@DefaultActivityDisplayTarget::class.java).also {
-				it.putExtra(ACTION_ID_EXTRA_KEY, actionId)
-			}
-		})
+		resolvers.add(activityIntentActionResolver("""screen.+""".toRegex(), this@DefaultActivityDisplayTarget::screenIntentGenerator))
 		resolvers.add(MatchActionResolver("""back""".toRegex()) { _, _ -> finish() })
 		resolvers.add(MatchActionResolver("""close""".toRegex()) { _, _ -> finishAffinity() })
+	}
+	
+	open fun screenIntentGenerator(actionId : String) = Intent(this, this::class.java).also {
+		it.putExtra(ACTION_ID_EXTRA_KEY, actionId)
 	}
 	
 	override fun displayData(data: DisplayData) {
