@@ -71,6 +71,7 @@ class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () ->
 				val response = api.getContentByLink(pageUri)
 				jsonObjectToDisplayData(response)
 			}
+			loadingIndicator.setLoadingState(false)
 			target.displayData(data)
 		}
 	}
