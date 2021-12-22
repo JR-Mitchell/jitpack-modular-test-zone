@@ -14,8 +14,23 @@ import com.jrmitchell.cube.investigation.jitpack.modular.test.populator.retrofit
  */
 class RoomDataCache(context: Context, val nullKey: String = "NULL_PAGE_KEY") : RetrofitGsonPopulator.DisplayDataCache {
 	
-	private val displayDataDatabase = Room.databaseBuilder(context, DisplayDataDatabase::class.java, "displaydata").build()
-	private val buttonDataDatabase = Room.databaseBuilder(context, ButtonDataDatabase::class.java, "buttondata").build()
+	companion object {
+		private var displayDataDatabase : DisplayDataDatabase? = null
+		private fun getDisplayDatabase(context: Context) : DisplayDataDatabase = displayDataDatabase ?: run {
+			val newDb = Room.databaseBuilder(context.applicationContext, DisplayDataDatabase::class.java, "displaydata").build()
+			displayDataDatabase = newDb
+			newDb
+		}
+		private var buttonDataDatabase : ButtonDataDatabase? = null
+		private fun getButtonDatabase(context: Context) : ButtonDataDatabase = buttonDataDatabase ?: run {
+			val newDb = Room.databaseBuilder(context.applicationContext, ButtonDataDatabase::class.java, "buttondata").build()
+			buttonDataDatabase = newDb
+			newDb
+		}
+	}
+	
+	private val displayDataDatabase = getDisplayDatabase(context)
+	private val buttonDataDatabase = getButtonDatabase(context)
 	
 	override suspend fun set(key: String?, value: DisplayData) {
 		val displayEntity = DisplayDataEntity(key ?: nullKey, value)
