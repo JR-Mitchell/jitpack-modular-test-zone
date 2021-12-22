@@ -1,0 +1,29 @@
+{
+	"image": {
+		"width": 40,
+		"height": 40,
+		"uri": "https://avatars.githubusercontent.com/u/8377714?v=4"
+	},
+	"imageContentDescription": "android figure",
+	"titleText": "You selected option A (online)",
+	"buttonData": [
+		{
+			"buttonText": "Confirm",
+			"actionData": {
+				"actionId": "screenConfirm"
+			}
+		},
+		{
+			"buttonText": "Back",
+			"actionData": {
+				"actionId": "back"
+			}
+		},
+		{
+			"buttonText": "Close",
+			"actionData": {
+				"actionId": "close"
+			}
+		}
+	]
+}
