@@ -1,0 +1,35 @@
+{
+	"image": {
+		"width": 40,
+		"height": 40,
+		"uri": "https://github.com/JR-Mitchell/DriveFinanceAndroid/blob/main/app/src/main/ic_launcher-playstore.png?raw=true"
+	},
+	"imageContentDescription": "android figure",
+	"titleText": "First Page (loaded)",
+	"buttonData": [
+		{
+			"buttonText": "Option A",
+			"actionData": {
+				"actionId": "screenOptionA"
+			}
+		},
+		{
+			"buttonText": "Option B",
+			"actionData": {
+				"actionId": "screenOptionB"
+			}
+		},
+		{
+			"buttonText": "Option C",
+			"actionData": {
+				"actionId": "screenOptionC"
+			}
+		},
+		{
+			"buttonText": "Back",
+			"actionData": {
+				"actionId": "back"
+			}
+		}
+	]
+}
