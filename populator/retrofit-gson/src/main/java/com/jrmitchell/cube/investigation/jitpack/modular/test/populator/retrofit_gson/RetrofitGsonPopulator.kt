@@ -14,10 +14,22 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () -> CoroutineScope, val uriSuffix : String = "", val memoryCache : MutableMap<String?, DisplayData>? = null) : DisplayPopulator {
+class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () -> CoroutineScope, val uriSuffix: String = "", val memoryCache: MemoryCache? = null) : DisplayPopulator {
+	
+	interface MemoryCache {
+		suspend fun set(key: String?, value: DisplayData)
+		suspend fun get(key: String?): DisplayData?
+	}
+	
+	constructor(baseUrl: String, coroutineScopeGetter: () -> CoroutineScope, uriSuffix: String, cacheMap: MutableMap<String?, DisplayData>) :
+			this(baseUrl, coroutineScopeGetter, uriSuffix,
+				object : MemoryCache {
+					override suspend fun set(key: String?, value: DisplayData) = cacheMap.set(key, value)
+					override suspend fun get(key: String?): DisplayData? = cacheMap[key]
+				})
 	
 	companion object {
-		private fun jsonObjectToImageData(obj : JsonObject): ImageData {
+		private fun jsonObjectToImageData(obj: JsonObject): ImageData {
 			val width = obj.get("width").asInt
 			val height = obj.get("height").asInt
 			val uri = obj.get("uri").asString
@@ -31,7 +43,7 @@ class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () ->
 			)
 		}
 		
-		private fun jsonObjectToDisplayData(elem: JsonElement?) : DisplayData {
+		private fun jsonObjectToDisplayData(elem: JsonElement?): DisplayData {
 			val obj = elem!!.asJsonObject
 			val imageData = obj.getAsJsonObject("image").let(this::jsonObjectToImageData)
 			val buttonData = obj.getAsJsonArray("buttonData").map(this::jsonElementToButtonData)
@@ -57,18 +69,25 @@ class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () ->
 				.create(API::class.java)
 		}
 	
-	override fun populateDisplayFromUri(pageUri: String?, target: DisplayTarget, loadingIndicator: LoadingIndicator) {
-		loadingIndicator.setLoadingState(true)
-		val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+	private fun coroutineExceptionHandler(pageUri: String?, target: DisplayTarget, loadingIndicator: LoadingIndicator) = CoroutineExceptionHandler { _, throwable ->
+		coroutineScopeGetter().launch(Dispatchers.Main + CoroutineExceptionHandler { _, throwable ->
+			loadingIndicator.setLoadingState(false)
+			target.displayError(throwable)
+		}) {
 			val cachedVal = memoryCache?.get(pageUri)
 			loadingIndicator.setLoadingState(false)
-			if(cachedVal != null) {
+			if (cachedVal != null) {
 				target.displayData(cachedVal)
-			} else {
+			}
+			else {
 				target.displayError(throwable)
 			}
 		}
-		coroutineScopeGetter().launch(Dispatchers.Main + coroutineExceptionHandler) {
+	}
+	
+	override fun populateDisplayFromUri(pageUri: String?, target: DisplayTarget, loadingIndicator: LoadingIndicator) {
+		loadingIndicator.setLoadingState(true)
+		coroutineScopeGetter().launch(Dispatchers.Main + coroutineExceptionHandler(pageUri, target, loadingIndicator)) {
 			if (pageUri.isNullOrBlank()) {
 				throw Throwable()
 			}
