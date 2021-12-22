@@ -20,7 +20,7 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 	override val loadingUi: View get() = binding.loading
 	override val titleView: TextView get() = binding.display.findViewById(R.id.display_title)
 	
-	lateinit var populator : DisplayPopulator
+	lateinit var populator: DisplayPopulator
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -32,6 +32,10 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 		initialiseAdapter()
 		
 		populator.populateDisplayFromUri(getActionId() ?: "screen0", this, this)
+	}
+	
+	override fun screenIntentGenerator(actionId: String) = super.screenIntentGenerator(actionId).apply {
+		putExtra(PopulatorType::class.simpleName, intent.getStringExtra(PopulatorType::class.simpleName))
 	}
 	
 }
