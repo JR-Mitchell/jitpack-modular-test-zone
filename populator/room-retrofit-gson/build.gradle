@@ -41,7 +41,7 @@ android {
 
 					// You can then customize attributes of the publication as shown below.
 					groupId = 'com.jrmitchell.cube.investigation.jitpack.modular.test.populator.room-retrofit-gson'
-					artifactId = 'room-retrofit-gson-populator'
+					artifactId = 'room-retrofit-gson-cache'
 					version = '1.0'
 				}
 			}
