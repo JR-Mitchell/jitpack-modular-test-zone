@@ -14,7 +14,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () -> CoroutineScope, val uriSuffix : String = "", val memoryCache : HashMap<String?, DisplayData>? = null) : DisplayPopulator {
+class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () -> CoroutineScope, val uriSuffix : String = "", val memoryCache : MutableMap<String?, DisplayData>? = null) : DisplayPopulator {
 	
 	companion object {
 		private fun jsonObjectToImageData(obj : JsonObject): ImageData {
