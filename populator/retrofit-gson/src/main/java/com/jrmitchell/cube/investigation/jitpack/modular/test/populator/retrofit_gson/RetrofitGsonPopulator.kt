@@ -14,16 +14,16 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () -> CoroutineScope, val uriSuffix: String = "", val memoryCache: MemoryCache? = null) : DisplayPopulator {
+class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () -> CoroutineScope, val uriSuffix: String = "", val displayDataCache: DisplayDataCache? = null) : DisplayPopulator {
 	
-	interface MemoryCache {
+	interface DisplayDataCache {
 		suspend fun set(key: String?, value: DisplayData)
 		suspend fun get(key: String?): DisplayData?
 	}
 	
 	constructor(baseUrl: String, coroutineScopeGetter: () -> CoroutineScope, uriSuffix: String, cacheMap: MutableMap<String?, DisplayData>) :
 			this(baseUrl, coroutineScopeGetter, uriSuffix,
-				object : MemoryCache {
+				object : DisplayDataCache {
 					override suspend fun set(key: String?, value: DisplayData) = cacheMap.set(key, value)
 					override suspend fun get(key: String?): DisplayData? = cacheMap[key]
 				})
@@ -74,7 +74,7 @@ class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () ->
 			loadingIndicator.setLoadingState(false)
 			target.displayError(throwable)
 		}) {
-			val cachedVal = memoryCache?.get(pageUri)
+			val cachedVal = displayDataCache?.get(pageUri)
 			loadingIndicator.setLoadingState(false)
 			if (cachedVal != null) {
 				target.displayData(cachedVal)
@@ -97,7 +97,7 @@ class RetrofitGsonPopulator(val baseUrl: String, val coroutineScopeGetter: () ->
 			}
 			loadingIndicator.setLoadingState(false)
 			target.displayData(data)
-			memoryCache?.set(pageUri, data.copy(titleText = data.titleText + " (from memory cache)"))
+			displayDataCache?.set(pageUri, data.copy(titleText = data.titleText + " (from cache)"))
 		}
 	}
 }
