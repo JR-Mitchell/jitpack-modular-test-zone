@@ -1,6 +1,7 @@
 package com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp
 
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.core.abstract.AndroidImageLoader
+import com.jrmitchell.cube.investigation.jitpack.modular.test.android.images.coil.CoilImageLoader
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.images.picasso.PicassoImageLoader
 
 enum class ImageLoaderType(val activityGetter: ActivityActivity.() -> AndroidImageLoader, val fragmentGetter: FragmentActivity.() -> AndroidImageLoader) {
@@ -11,6 +12,10 @@ enum class ImageLoaderType(val activityGetter: ActivityActivity.() -> AndroidIma
 	PLACEHOLDER(
 		{ PlaceholderImageLoader() },
 		{ PlaceholderImageLoader() }
+	),
+	COIL(
+		{ CoilImageLoader },
+		{ CoilImageLoader }
 	);
 	
 	companion object {
