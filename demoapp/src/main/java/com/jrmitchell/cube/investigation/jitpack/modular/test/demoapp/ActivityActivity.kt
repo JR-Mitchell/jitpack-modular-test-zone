@@ -6,21 +6,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.activity.DefaultActivityDisplayTarget
+import com.jrmitchell.cube.investigation.jitpack.modular.test.android.core.abstract.AndroidImageLoader
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.core.adapter.ButtonAdapter
-import com.jrmitchell.cube.investigation.jitpack.modular.test.android.images.picasso.PicassoImageLoader
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.abstract.DisplayPopulator
 import com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp.databinding.ActivityActivityBinding
 
-class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
+class ActivityActivity : DefaultActivityDisplayTarget<AndroidImageLoader>() {
 	lateinit var binding: ActivityActivityBinding
 	override val buttonRecyclerView: RecyclerView get() = binding.display.findViewById(R.id.display_button_list)
 	override lateinit var buttonAdapter: ButtonAdapter
-	override val imageLoader = PicassoImageLoader
 	override val imageView: ImageView get() = binding.display.findViewById(R.id.display_image)
 	override val loadingUi: View get() = binding.loading
 	override val titleView: TextView get() = binding.display.findViewById(R.id.display_title)
 	
 	lateinit var populator: DisplayPopulator
+	override lateinit var imageLoader: AndroidImageLoader
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -28,6 +28,7 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 		setContentView(binding.root)
 		
 		populator = PopulatorType.valueOfOrDefault(intent.getStringExtra(PopulatorType::class.simpleName)).activityGetter(this)
+		imageLoader = ImageLoaderType.valueOfOrDefault(intent.getStringExtra(ImageLoaderType::class.simpleName)).activityGetter(this)
 		
 		initialiseAdapter()
 		
@@ -36,6 +37,7 @@ class ActivityActivity : DefaultActivityDisplayTarget<PicassoImageLoader>() {
 	
 	override fun screenIntentGenerator(actionId: String) = super.screenIntentGenerator(actionId).apply {
 		putExtra(PopulatorType::class.simpleName, intent.getStringExtra(PopulatorType::class.simpleName))
+		putExtra(ImageLoaderType::class.simpleName, intent.getStringExtra(ImageLoaderType::class.simpleName))
 	}
 	
 }

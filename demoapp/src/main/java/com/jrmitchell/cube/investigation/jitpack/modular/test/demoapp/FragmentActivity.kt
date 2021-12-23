@@ -4,19 +4,20 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.FragmentContainerView
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.activity.DefaultFragmentActivity
+import com.jrmitchell.cube.investigation.jitpack.modular.test.android.core.abstract.AndroidImageLoader
 import com.jrmitchell.cube.investigation.jitpack.modular.test.android.fragment.factory.DefaultPopulatorFragmentFactory
-import com.jrmitchell.cube.investigation.jitpack.modular.test.android.images.picasso.PicassoImageLoader
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.abstract.DisplayPopulator
 import com.jrmitchell.cube.investigation.jitpack.modular.test.core.data.ActionData
 import com.jrmitchell.cube.investigation.jitpack.modular.test.demoapp.databinding.ActivityFragmentBinding
 
-class FragmentActivity : DefaultFragmentActivity<FragmentContainerView, PicassoImageLoader>() {
+class FragmentActivity : DefaultFragmentActivity<FragmentContainerView, AndroidImageLoader>() {
 	lateinit var binding: ActivityFragmentBinding
-	override val imageLoader = PicassoImageLoader
 	override val fragmentContainerView: FragmentContainerView get() = binding.containerView
 	override val loadingUi: View get() = binding.loading
 	override lateinit var fragmentFactory: DefaultPopulatorFragmentFactory
-	override lateinit var populator : DisplayPopulator
+	
+	override lateinit var populator: DisplayPopulator
+	override lateinit var imageLoader: AndroidImageLoader
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -24,6 +25,7 @@ class FragmentActivity : DefaultFragmentActivity<FragmentContainerView, PicassoI
 		setContentView(binding.root)
 		
 		populator = PopulatorType.valueOfOrDefault(intent.getStringExtra(PopulatorType::class.simpleName)).fragmentGetter(this)
+		imageLoader = ImageLoaderType.valueOfOrDefault(intent.getStringExtra(ImageLoaderType::class.simpleName)).fragmentGetter(this)
 		
 		fragmentFactory = getDefaultFragmentFactory()
 		supportFragmentManager.fragmentFactory = fragmentFactory

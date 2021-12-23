@@ -12,9 +12,11 @@ class MainActivity : AppCompatActivity() {
 	
 	private val uiType get() = binding.uiSpinner.selectedItem as UiType
 	private val populatorType get() = binding.populatorSpinner.selectedItem as PopulatorType
+	private val imageLoaderType get() = binding.imageLoaderSpinner.selectedItem as ImageLoaderType
 	
 	private fun getIntent(cls : Class<out Activity>) = Intent(this, cls).apply {
 		putExtra(PopulatorType::class.simpleName, populatorType.name)
+		putExtra(ImageLoaderType::class.simpleName, imageLoaderType.name)
 	}
 	
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 		
 		binding.uiSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, UiType.values())
 		binding.populatorSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, PopulatorType.values())
+		binding.imageLoaderSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, ImageLoaderType.values())
 		
 		binding.goButton.setOnClickListener {
 			when(uiType) {
