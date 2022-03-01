@@ -1,7 +1,4 @@
 jdk:
   - openjdk11
 install:
-  - echo $GROUP
-  - echo $ARTIFACT
-  - echo $VERSION
   - ./gradlew clean core:build android:core:build android:activity:build publishToMavenLocal

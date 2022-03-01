@@ -49,6 +49,8 @@ android {
 }
 
 dependencies {
+	println "$System.env.JITPACK"
+	println "$System.env.VERSION"
 
 	implementation 'androidx.core:core-ktx:1.7.0'
 	implementation project(path: ':core')
