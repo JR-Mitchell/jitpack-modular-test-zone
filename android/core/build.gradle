@@ -4,6 +4,23 @@ plugins {
 	id 'maven-publish'
 }
 
+def getCoreKtxVersion(requiredVersion) {
+	if("$System.env.JITPACK".toString() == "true") {
+		def jitpackVersion = "$System.env.VERSION".toString()
+		if(jitpackVersion ==~ /\d+\.\d+\.\d+/)
+		{
+			println "Release version"
+			return jitpackVersion
+		}
+		if(jitpackVersion ==~ /\d+\.\d+\.\d+-\w+/)
+		{
+			println "Pre-release version"
+			return requiredVersion
+		}
+	}
+	return requiredVersion
+}
+
 android {
 	compileSdk 31
 
@@ -49,10 +66,7 @@ android {
 }
 
 dependencies {
-	def coreKtxVersion = "1.7.0"
-	if("$System.env.JITPACK".toString() == "true") {
-		coreKtxVersion = "$System.env.VERSION"
-	}
+	def coreKtxVersion = getCoreKtxVersion("1.7.0")
 
 	implementation "androidx.core:core-ktx:$coreKtxVersion"
 	implementation project(path: ':core')
