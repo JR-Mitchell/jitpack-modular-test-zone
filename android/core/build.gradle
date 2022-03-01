@@ -63,7 +63,7 @@ android {
 }
 
 dependencies {
-	def someVersion = withConsistentVersioning("0.0.1-rc4")
+	def someVersion = withConsistentVersioning("0.0.1-rc3")
 
 	implementation "androidx.core:core-ktx:1.7.0"
 	implementation project(path: ':core')
