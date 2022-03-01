@@ -49,10 +49,12 @@ android {
 }
 
 dependencies {
-	println "$System.env.JITPACK"
-	println "$System.env.VERSION"
+	def coreKtxVersion = "1.7.0"
+	if("$System.env.JITPACK".toString() == "true") {
+		coreKtxVersion = "$System.env.VERSION"
+	}
 
-	implementation 'androidx.core:core-ktx:1.7.0'
+	implementation "androidx.core:core-ktx:$coreKtxVersion"
 	implementation project(path: ':core')
 	implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }
