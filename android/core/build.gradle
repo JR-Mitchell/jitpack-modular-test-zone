@@ -4,18 +4,15 @@ plugins {
 	id 'maven-publish'
 }
 
-def getCoreKtxVersion(requiredVersion) {
+def withConsistentVersioning(requiredVersion) {
 	if("$System.env.JITPACK".toString() == "true") {
 		def jitpackVersion = "$System.env.VERSION".toString()
-		if(jitpackVersion ==~ /\d+\.\d+\.\d+/)
+		if(jitpackVersion ==~ /\w?\d+\.\d+\.\d+(-\w+)?/)
 		{
-			println "Release version"
-			return jitpackVersion
-		}
-		if(jitpackVersion ==~ /\d+\.\d+\.\d+-\w+/)
-		{
-			println "Pre-release version"
-			return requiredVersion
+			println "Pre-release or release version - checking for versioning consistency"
+			if(requiredVersion != jitpackVersion) {
+				throw new GradleException("Required version $requiredVersion does not match build version $jitpackVersion")
+			}
 		}
 	}
 	return requiredVersion
@@ -66,9 +63,9 @@ android {
 }
 
 dependencies {
-	def coreKtxVersion = getCoreKtxVersion("1.7.0")
+	def someVersion = withConsistentVersioning("0.0.1-rc1")
 
-	implementation "androidx.core:core-ktx:$coreKtxVersion"
+	implementation "androidx.core:core-ktx:1.7.0"
 	implementation project(path: ':core')
 	implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }
